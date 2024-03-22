@@ -1,0 +1,17 @@
+query getCharecters {
+  characters {
+    results {
+      id
+      name
+      status
+      species
+      type
+      gender
+      origin {
+        id
+        name
+        type
+      }
+    }
+  }
+}
