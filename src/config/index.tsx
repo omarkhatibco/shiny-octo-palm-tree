@@ -10,5 +10,5 @@ export type MainMenuItem = {
 export const mainMenu: MainMenuItem[] = [
   { name: 'Characters', href: '/characters', icon: <RickIcon /> },
   { name: 'Episodes', href: '/episodes', icon: <MortyIcon /> },
-  { name: 'Location', href: '/locations', icon: <BethIcon /> },
+  { name: 'Locations', href: '/locations', icon: <BethIcon /> },
 ]
