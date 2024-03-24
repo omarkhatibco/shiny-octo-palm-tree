@@ -1,12 +1,16 @@
+import { ReactNode } from 'react'
 import { getObjectKeys } from '@/utls'
-import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { SkeletonText, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 
-export function DataTable<T>({ data }: { data: T[] }) {
-  console.log(data)
-  if (!Array.isArray(data) || data?.length === 0) {
-    return <div>No data</div>
-  }
+const loadingArr = Array.from({ length: 20 }).map((_, i) => i)
 
+export function DataTable<T extends Record<string, unknown>>({
+  data,
+  isLoading,
+}: {
+  data: T[]
+  isLoading: boolean
+}) {
   const keys = getObjectKeys(data)
 
   return (
@@ -20,13 +24,27 @@ export function DataTable<T>({ data }: { data: T[] }) {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((item, index) => (
-            <Tr key={index}>
-              {keys.map(key => (
-                <Td key={key}>{item?.[key]}</Td>
-              ))}
-            </Tr>
-          ))}
+          {isLoading &&
+            loadingArr.map(item => (
+              <Tr key={item}>
+                {keys.map((key: keyof T) => (
+                  <Td key={key as string}>
+                    <SkeletonText
+                      noOfLines={1}
+                      skeletonHeight='5'
+                    />
+                  </Td>
+                ))}
+              </Tr>
+            ))}
+          {!isLoading &&
+            data.map(item => (
+              <Tr key={item?.['id'] as string}>
+                {keys.map((key: keyof T) => (
+                  <Td key={key as string}>{item[key] as ReactNode}</Td>
+                ))}
+              </Tr>
+            ))}
         </Tbody>
       </Table>
     </TableContainer>

@@ -202,7 +202,6 @@ export type QueryLocationsByIdsArgs = {
 export type InfoFragment = {
   __typename?: 'Info'
   count?: number | null
-  pages?: number | null
   next?: number | null
   prev?: number | null
 }
@@ -219,7 +218,6 @@ export type GetCharectersQuery = {
     info?: {
       __typename?: 'Info'
       count?: number | null
-      pages?: number | null
       next?: number | null
       prev?: number | null
     } | null
@@ -243,7 +241,6 @@ export type GetEpisodesQuery = {
     info?: {
       __typename?: 'Info'
       count?: number | null
-      pages?: number | null
       next?: number | null
       prev?: number | null
     } | null
@@ -260,7 +257,6 @@ export type GetEpisodesQuery = {
 export const InfoFragmentDoc = gql`
   fragment Info on Info {
     count
-    pages
     next
     prev
   }

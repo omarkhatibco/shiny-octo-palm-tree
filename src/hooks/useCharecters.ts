@@ -21,7 +21,7 @@ export const useCharecters = () => {
 
   const info = useMemo(() => charactersData?.characters?.info ?? {}, [charactersData])
 
-  const { count, pages, prev, next } = info
+  const { count, prev, next } = info
 
   const setNextPage = useCallback(() => {
     if (next) {
@@ -42,12 +42,11 @@ export const useCharecters = () => {
     data,
     isLoading,
     error,
-    count,
-    pages,
+    currentEntries: data.length,
+    totalEntries: count,
     hasNextPage,
     hasPrevPage,
     setNextPage,
     setPrevPage,
-    setPage,
   }
 }

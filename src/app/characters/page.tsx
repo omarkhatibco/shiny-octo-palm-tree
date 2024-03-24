@@ -1,13 +1,24 @@
 'use client'
 
-import { DataTable } from '@/components/tables'
+import { LoadingSpinner } from '@/components/others'
+import { DataPagination, DataTable } from '@/components/tables'
 import { useCharecters } from '@/hooks'
 
 export default function Page() {
-  const { data, isLoading, keys } = useCharecters()
+  const { data, isLoading, ...rest } = useCharecters()
   return (
-    <div>
-      <DataTable data={data} />
-    </div>
+    <>
+      {isLoading && !data ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <DataTable
+            data={data}
+            isLoading={isLoading}
+          />
+          <DataPagination {...rest} />
+        </>
+      )}
+    </>
   )
 }
