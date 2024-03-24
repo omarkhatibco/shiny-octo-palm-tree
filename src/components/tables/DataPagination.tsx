@@ -25,7 +25,7 @@ export const DataPagination: FC<DataPaginationProps> = ({
       align={'center'}
       justifyContent={'space-between'}
     >
-      <Text>
+      <Text data-testid='entries'>
         Showing {currentEntries} of {totalEntries} entries
       </Text>
 
