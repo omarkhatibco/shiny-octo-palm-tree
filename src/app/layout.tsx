@@ -23,6 +23,7 @@ export default function RootLayout({
             justifyContent={'center'}
             display='flex'
             minH={'100vh'}
+            py={16}
           >
             {children}
           </Container>

@@ -227,16 +227,9 @@ export type GetCharectersQuery = {
       __typename?: 'Character'
       id?: string | null
       name?: string | null
-      status?: string | null
       species?: string | null
-      type?: string | null
-      gender?: string | null
-      origin?: {
-        __typename?: 'Location'
-        id?: string | null
-        name?: string | null
-        type?: string | null
-      } | null
+      origin?: { __typename?: 'Location'; name?: string | null } | null
+      location?: { __typename?: 'Location'; name?: string | null } | null
     } | null> | null
   } | null
 }
@@ -281,14 +274,12 @@ export const GetCharectersDocument = gql`
       results {
         id
         name
-        status
         species
-        type
-        gender
         origin {
-          id
           name
-          type
+        }
+        location {
+          name
         }
       }
     }

@@ -13,14 +13,12 @@ query getCharecters($page: Int, $filter: FilterCharacter) {
     results {
       id
       name
-      status
       species
-      type
-      gender
       origin {
-        id
         name
-        type
+      }
+      location {
+        name
       }
     }
   }

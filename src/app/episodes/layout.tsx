@@ -1,3 +1,5 @@
+'use client'
+
 import { MortyIcon } from '@/assets/svg'
 
 import { PageLayout } from '@/components/layouts'

@@ -1,3 +1,5 @@
+'use client'
+
 import { BethIcon } from '@/assets/svg'
 
 import { PageLayout } from '@/components/layouts'

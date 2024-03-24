@@ -1,3 +1,13 @@
+'use client'
+
+import { DataTable } from '@/components/tables'
+import { useCharecters } from '@/hooks'
+
 export default function Page() {
-  return <div>Hello Perdoo</div>
+  const { data, isLoading, keys } = useCharecters()
+  return (
+    <div>
+      <DataTable data={data} />
+    </div>
+  )
 }

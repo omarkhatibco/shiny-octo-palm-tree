@@ -1,3 +1,5 @@
+'use client'
+
 import { RickIcon } from '@/assets/svg'
 
 import { PageLayout } from '@/components/layouts'
