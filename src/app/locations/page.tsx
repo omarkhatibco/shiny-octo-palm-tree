@@ -15,6 +15,8 @@ export default function Page() {
           <DataTable
             data={data}
             isLoading={isLoading}
+            hasActions
+            pathPrefix='/locations'
           />
           <DataPagination {...rest} />
         </>
