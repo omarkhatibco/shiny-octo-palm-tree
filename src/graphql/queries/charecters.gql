@@ -22,3 +22,20 @@ query getCharecters($page: Int) {
     }
   }
 }
+
+query getCharectersByIds($ids: [ID!]!) {
+  charactersByIds(ids: $ids) {
+    id
+    name
+    species
+    type
+    gender
+    origin {
+      name
+    }
+    location {
+      name
+    }
+    image
+  }
+}

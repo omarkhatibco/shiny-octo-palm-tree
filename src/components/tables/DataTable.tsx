@@ -17,7 +17,7 @@ export function DataTable<T extends Record<string, unknown>>({
   hasActions?: boolean
   pathPrefix?: string
 }) {
-  const keys = getObjectKeys(data)
+  const keys = getObjectKeys(data?.[0] ?? {})
 
   return (
     <TableContainer>

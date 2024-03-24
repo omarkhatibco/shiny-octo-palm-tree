@@ -231,6 +231,25 @@ export type GetCharectersQuery = {
   } | null
 }
 
+export type GetCharectersByIdsQueryVariables = Exact<{
+  ids: Array<Scalars['ID']['input']> | Scalars['ID']['input']
+}>
+
+export type GetCharectersByIdsQuery = {
+  __typename?: 'Query'
+  charactersByIds?: Array<{
+    __typename?: 'Character'
+    id?: string | null
+    name?: string | null
+    species?: string | null
+    type?: string | null
+    gender?: string | null
+    image?: string | null
+    origin?: { __typename?: 'Location'; name?: string | null } | null
+    location?: { __typename?: 'Location'; name?: string | null } | null
+  } | null> | null
+}
+
 export type GetEpisodesQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>
 }>
@@ -313,6 +332,33 @@ export function useGetCharectersQuery(
 ) {
   return Urql.useQuery<GetCharectersQuery, GetCharectersQueryVariables>({
     query: GetCharectersDocument,
+    ...options,
+  })
+}
+export const GetCharectersByIdsDocument = gql`
+  query getCharectersByIds($ids: [ID!]!) {
+    charactersByIds(ids: $ids) {
+      id
+      name
+      species
+      type
+      gender
+      origin {
+        name
+      }
+      location {
+        name
+      }
+      image
+    }
+  }
+`
+
+export function useGetCharectersByIdsQuery(
+  options: Omit<Urql.UseQueryArgs<GetCharectersByIdsQueryVariables>, 'query'>,
+) {
+  return Urql.useQuery<GetCharectersByIdsQuery, GetCharectersByIdsQueryVariables>({
+    query: GetCharectersByIdsDocument,
     ...options,
   })
 }
