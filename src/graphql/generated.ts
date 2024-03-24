@@ -208,7 +208,6 @@ export type InfoFragment = {
 
 export type GetCharectersQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>
-  filter?: InputMaybe<FilterCharacter>
 }>
 
 export type GetCharectersQuery = {
@@ -232,7 +231,9 @@ export type GetCharectersQuery = {
   } | null
 }
 
-export type GetEpisodesQueryVariables = Exact<{ [key: string]: never }>
+export type GetEpisodesQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']['input']>
+}>
 
 export type GetEpisodesQuery = {
   __typename?: 'Query'
@@ -247,9 +248,9 @@ export type GetEpisodesQuery = {
     results?: Array<{
       __typename?: 'Episode'
       id?: string | null
+      episode?: string | null
       name?: string | null
       air_date?: string | null
-      created?: string | null
     } | null> | null
   } | null
 }
@@ -262,8 +263,8 @@ export const InfoFragmentDoc = gql`
   }
 `
 export const GetCharectersDocument = gql`
-  query getCharecters($page: Int, $filter: FilterCharacter) {
-    characters(page: $page, filter: $filter) {
+  query getCharecters($page: Int) {
+    characters(page: $page) {
       info {
         ...Info
       }
@@ -292,16 +293,16 @@ export function useGetCharectersQuery(
   })
 }
 export const GetEpisodesDocument = gql`
-  query getEpisodes {
-    episodes {
+  query getEpisodes($page: Int) {
+    episodes(page: $page) {
       info {
         ...Info
       }
       results {
         id
+        episode
         name
         air_date
-        created
       }
     }
   }

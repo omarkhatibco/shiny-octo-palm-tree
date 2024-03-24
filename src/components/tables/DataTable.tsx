@@ -19,7 +19,7 @@ export function DataTable<T extends Record<string, unknown>>({
         <Thead>
           <Tr>
             {keys.map(key => (
-              <Th key={key}>{key}</Th>
+              <Th key={key}>{key?.replaceAll('_', ' ')}</Th>
             ))}
           </Tr>
         </Thead>

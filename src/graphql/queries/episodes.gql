@@ -1,13 +1,13 @@
-query getEpisodes {
-  episodes {
+query getEpisodes($page: Int) {
+  episodes(page: $page) {
     info {
       ...Info
     }
     results {
       id
+      episode
       name
       air_date
-      created
     }
   }
 }

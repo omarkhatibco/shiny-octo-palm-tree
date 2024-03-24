@@ -4,8 +4,8 @@ fragment Info on Info {
   prev
 }
 
-query getCharecters($page: Int, $filter: FilterCharacter) {
-  characters(page: $page, filter: $filter) {
+query getCharecters($page: Int) {
+  characters(page: $page) {
     info {
       ...Info
     }
