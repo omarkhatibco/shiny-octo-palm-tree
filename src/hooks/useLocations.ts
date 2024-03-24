@@ -1,20 +1,20 @@
 import { useCallback, useMemo } from 'react'
-import { useGetEpisodesQuery } from '@/graphql/generated'
+import { useGetLocationsQuery } from '@/graphql/generated'
 import { parseAsInteger, useQueryState } from 'nuqs'
 
-export const useEpisodes = () => {
+export const useLocations = () => {
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1))
 
-  const [{ data: episodesData, fetching: isLoading, error }] = useGetEpisodesQuery({
+  const [{ data: locationsData, fetching: isLoading, error }] = useGetLocationsQuery({
     variables: { page },
   })
 
   const data = useMemo(
-    () => episodesData?.episodes?.results?.map(item => ({ ...item })) ?? [],
-    [episodesData],
+    () => locationsData?.locations?.results?.map(item => ({ ...item })) ?? [],
+    [locationsData],
   )
 
-  const info = useMemo(() => episodesData?.episodes?.info ?? {}, [episodesData])
+  const info = useMemo(() => locationsData?.locations?.info ?? {}, [locationsData])
 
   const { count, prev, next } = info
 

@@ -15,7 +15,7 @@ export const useCharecters = () => {
         ...item,
         origin: item?.origin?.name,
         location: item?.location?.name,
-      })) || [],
+      })) ?? [],
     [charactersData],
   )
 

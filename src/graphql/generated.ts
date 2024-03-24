@@ -255,6 +255,30 @@ export type GetEpisodesQuery = {
   } | null
 }
 
+export type GetLocationsQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']['input']>
+}>
+
+export type GetLocationsQuery = {
+  __typename?: 'Query'
+  locations?: {
+    __typename?: 'Locations'
+    info?: {
+      __typename?: 'Info'
+      count?: number | null
+      next?: number | null
+      prev?: number | null
+    } | null
+    results?: Array<{
+      __typename?: 'Location'
+      id?: string | null
+      name?: string | null
+      type?: string | null
+      dimension?: string | null
+    } | null> | null
+  } | null
+}
+
 export const InfoFragmentDoc = gql`
   fragment Info on Info {
     count
@@ -314,6 +338,31 @@ export function useGetEpisodesQuery(
 ) {
   return Urql.useQuery<GetEpisodesQuery, GetEpisodesQueryVariables>({
     query: GetEpisodesDocument,
+    ...options,
+  })
+}
+export const GetLocationsDocument = gql`
+  query getLocations($page: Int) {
+    locations(page: $page) {
+      info {
+        ...Info
+      }
+      results {
+        id
+        name
+        type
+        dimension
+      }
+    }
+  }
+  ${InfoFragmentDoc}
+`
+
+export function useGetLocationsQuery(
+  options?: Omit<Urql.UseQueryArgs<GetLocationsQueryVariables>, 'query'>,
+) {
+  return Urql.useQuery<GetLocationsQuery, GetLocationsQueryVariables>({
+    query: GetLocationsDocument,
     ...options,
   })
 }

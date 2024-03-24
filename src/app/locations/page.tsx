@@ -1,5 +1,24 @@
 'use client'
 
+import { LoadingSpinner } from '@/components/others'
+import { DataPagination, DataTable } from '@/components/tables'
+import { useLocations } from '@/hooks'
+
 export default function Page() {
-  return <div>Hello Perdoo</div>
+  const { data, isLoading, ...rest } = useLocations()
+  return (
+    <>
+      {isLoading && !data ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <DataTable
+            data={data}
+            isLoading={isLoading}
+          />
+          <DataPagination {...rest} />
+        </>
+      )}
+    </>
+  )
 }
