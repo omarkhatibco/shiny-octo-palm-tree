@@ -1,5 +1,15 @@
-query getCharecters {
-  characters {
+fragment Info on Info {
+  count
+  pages
+  next
+  prev
+}
+
+query getCharecters($page: Int, $filter: FilterCharacter) {
+  characters(page: $page, filter: $filter) {
+    info {
+      ...Info
+    }
     results {
       id
       name

@@ -199,12 +199,30 @@ export type QueryLocationsByIdsArgs = {
   ids: Array<Scalars['ID']['input']>
 }
 
-export type GetCharectersQueryVariables = Exact<{ [key: string]: never }>
+export type InfoFragment = {
+  __typename?: 'Info'
+  count?: number | null
+  pages?: number | null
+  next?: number | null
+  prev?: number | null
+}
+
+export type GetCharectersQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']['input']>
+  filter?: InputMaybe<FilterCharacter>
+}>
 
 export type GetCharectersQuery = {
   __typename?: 'Query'
   characters?: {
     __typename?: 'Characters'
+    info?: {
+      __typename?: 'Info'
+      count?: number | null
+      pages?: number | null
+      next?: number | null
+      prev?: number | null
+    } | null
     results?: Array<{
       __typename?: 'Character'
       id?: string | null
@@ -223,9 +241,43 @@ export type GetCharectersQuery = {
   } | null
 }
 
+export type GetEpisodesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetEpisodesQuery = {
+  __typename?: 'Query'
+  episodes?: {
+    __typename?: 'Episodes'
+    info?: {
+      __typename?: 'Info'
+      count?: number | null
+      pages?: number | null
+      next?: number | null
+      prev?: number | null
+    } | null
+    results?: Array<{
+      __typename?: 'Episode'
+      id?: string | null
+      name?: string | null
+      air_date?: string | null
+      created?: string | null
+    } | null> | null
+  } | null
+}
+
+export const InfoFragmentDoc = gql`
+  fragment Info on Info {
+    count
+    pages
+    next
+    prev
+  }
+`
 export const GetCharectersDocument = gql`
-  query getCharecters {
-    characters {
+  query getCharecters($page: Int, $filter: FilterCharacter) {
+    characters(page: $page, filter: $filter) {
+      info {
+        ...Info
+      }
       results {
         id
         name
@@ -241,6 +293,7 @@ export const GetCharectersDocument = gql`
       }
     }
   }
+  ${InfoFragmentDoc}
 `
 
 export function useGetCharectersQuery(
@@ -248,6 +301,31 @@ export function useGetCharectersQuery(
 ) {
   return Urql.useQuery<GetCharectersQuery, GetCharectersQueryVariables>({
     query: GetCharectersDocument,
+    ...options,
+  })
+}
+export const GetEpisodesDocument = gql`
+  query getEpisodes {
+    episodes {
+      info {
+        ...Info
+      }
+      results {
+        id
+        name
+        air_date
+        created
+      }
+    }
+  }
+  ${InfoFragmentDoc}
+`
+
+export function useGetEpisodesQuery(
+  options?: Omit<Urql.UseQueryArgs<GetEpisodesQueryVariables>, 'query'>,
+) {
+  return Urql.useQuery<GetEpisodesQuery, GetEpisodesQueryVariables>({
+    query: GetEpisodesDocument,
     ...options,
   })
 }
