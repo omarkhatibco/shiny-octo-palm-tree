@@ -6,8 +6,6 @@ export const useSingleLocation = (id: string) => {
     variables: { ids: [id] },
   })
 
-  console.log('dataObject', dataObject)
-
   const data = useMemo(() => dataObject?.locationsByIds?.[0], [dataObject])
 
   return {

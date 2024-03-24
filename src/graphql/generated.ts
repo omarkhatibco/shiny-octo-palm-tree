@@ -274,6 +274,29 @@ export type GetEpisodesQuery = {
   } | null
 }
 
+export type GetEpisodesByIdsQueryVariables = Exact<{
+  ids: Array<Scalars['ID']['input']> | Scalars['ID']['input']
+}>
+
+export type GetEpisodesByIdsQuery = {
+  __typename?: 'Query'
+  episodesByIds?: Array<{
+    __typename?: 'Episode'
+    id?: string | null
+    episode?: string | null
+    name?: string | null
+    air_date?: string | null
+    characters: Array<{
+      __typename?: 'Character'
+      id?: string | null
+      name?: string | null
+      species?: string | null
+      origin?: { __typename?: 'Location'; name?: string | null } | null
+      location?: { __typename?: 'Location'; name?: string | null } | null
+    } | null>
+  } | null> | null
+}
+
 export type GetLocationsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>
 }>
@@ -407,6 +430,36 @@ export function useGetEpisodesQuery(
 ) {
   return Urql.useQuery<GetEpisodesQuery, GetEpisodesQueryVariables>({
     query: GetEpisodesDocument,
+    ...options,
+  })
+}
+export const GetEpisodesByIdsDocument = gql`
+  query getEpisodesByIds($ids: [ID!]!) {
+    episodesByIds(ids: $ids) {
+      id
+      episode
+      name
+      air_date
+      characters {
+        id
+        name
+        species
+        origin {
+          name
+        }
+        location {
+          name
+        }
+      }
+    }
+  }
+`
+
+export function useGetEpisodesByIdsQuery(
+  options: Omit<Urql.UseQueryArgs<GetEpisodesByIdsQueryVariables>, 'query'>,
+) {
+  return Urql.useQuery<GetEpisodesByIdsQuery, GetEpisodesByIdsQueryVariables>({
+    query: GetEpisodesByIdsDocument,
     ...options,
   })
 }

@@ -11,3 +11,23 @@ query getEpisodes($page: Int) {
     }
   }
 }
+
+query getEpisodesByIds($ids: [ID!]!) {
+  episodesByIds(ids: $ids) {
+    id
+    episode
+    name
+    air_date
+    characters {
+      id
+      name
+      species
+      origin {
+        name
+      }
+      location {
+        name
+      }
+    }
+  }
+}

@@ -24,8 +24,6 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 
   const { name, residents, ...rest } = data || {}
 
-  console.log('residents', residents)
-
   const keys = getObjectKeys(rest)
 
   const dataTableData = Array.isArray(residents)
