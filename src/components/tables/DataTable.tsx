@@ -37,6 +37,7 @@ export function DataTable<T extends Record<string, unknown>>({
                 {keys.map((key: keyof T) => (
                   <Td key={key as string}>
                     <SkeletonText
+                      data-testid='skeletonItem'
                       noOfLines={1}
                       skeletonHeight='5'
                     />
