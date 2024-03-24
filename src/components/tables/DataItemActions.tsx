@@ -17,6 +17,8 @@ export const DataItemActions: FC<DataItemActionsProps> = ({ id, pathPrefix }) =>
         href={`${path}/delete`}
         aria-label='Delete'
         icon={<DeleteIcon />}
+        colorScheme='red'
+        variant={'outline'}
       />
 
       <IconButton
@@ -24,12 +26,16 @@ export const DataItemActions: FC<DataItemActionsProps> = ({ id, pathPrefix }) =>
         href={`${path}/edit`}
         aria-label='Edit'
         icon={<EditIcon />}
+        colorScheme='blue'
+        variant={'outline'}
       />
       <IconButton
         as={Link}
         href={path}
         aria-label='view'
         icon={<ExternalLinkIcon />}
+        colorScheme='green'
+        variant={'outline'}
       />
     </Flex>
   )
