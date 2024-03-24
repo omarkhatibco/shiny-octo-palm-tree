@@ -54,7 +54,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
                 spacing='4'
               >
                 {keys.map(key => {
-                  const value = data?.[key as keyof typeof data] as ReactElement
+                  const value = rest?.[key as keyof typeof rest] as ReactElement
 
                   if (!value) return null
 

@@ -298,6 +298,29 @@ export type GetLocationsQuery = {
   } | null
 }
 
+export type GetLocationsByIdsQueryVariables = Exact<{
+  ids: Array<Scalars['ID']['input']> | Scalars['ID']['input']
+}>
+
+export type GetLocationsByIdsQuery = {
+  __typename?: 'Query'
+  locationsByIds?: Array<{
+    __typename?: 'Location'
+    id?: string | null
+    name?: string | null
+    type?: string | null
+    dimension?: string | null
+    residents: Array<{
+      __typename?: 'Character'
+      id?: string | null
+      name?: string | null
+      species?: string | null
+      origin?: { __typename?: 'Location'; name?: string | null } | null
+      location?: { __typename?: 'Location'; name?: string | null } | null
+    } | null>
+  } | null> | null
+}
+
 export const InfoFragmentDoc = gql`
   fragment Info on Info {
     count
@@ -409,6 +432,36 @@ export function useGetLocationsQuery(
 ) {
   return Urql.useQuery<GetLocationsQuery, GetLocationsQueryVariables>({
     query: GetLocationsDocument,
+    ...options,
+  })
+}
+export const GetLocationsByIdsDocument = gql`
+  query getLocationsByIds($ids: [ID!]!) {
+    locationsByIds(ids: $ids) {
+      id
+      name
+      type
+      dimension
+      residents {
+        id
+        name
+        species
+        origin {
+          name
+        }
+        location {
+          name
+        }
+      }
+    }
+  }
+`
+
+export function useGetLocationsByIdsQuery(
+  options: Omit<Urql.UseQueryArgs<GetLocationsByIdsQueryVariables>, 'query'>,
+) {
+  return Urql.useQuery<GetLocationsByIdsQuery, GetLocationsByIdsQueryVariables>({
+    query: GetLocationsByIdsDocument,
     ...options,
   })
 }
